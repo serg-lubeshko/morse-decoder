@@ -38,7 +38,28 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    expr_list = expr.split('**********');
+    const result = [];
+    for (let i = 0; i < expr_list.length; i++) {
+        let binary = expr_list[i].split('');
+        let phraseDecode = '';
+        while(binary.length) {
+            let morse = '';
+            let letter = binary.slice(0, 10);
+            binary.splice(0, 10);
+            for (let i = 0; i < 10; i += 2) {
+                if (letter[i] == '1' && letter[i+1] == '0') {
+                    morse += '.';
+                }
+                else if (letter[i] == '1' && letter[i+1] == '1') {
+                    morse += '-';
+                }
+            }
+            phraseDecode += MORSE_TABLE[morse];
+        }
+        result.push(phraseDecode);
+    }
+    return result.join(' ');
 }
 
 module.exports = {
